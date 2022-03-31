@@ -15,14 +15,9 @@ import {
 
 const App = () => {
   const initialValue = [
-    { id: 1, title: "First note", text: "Text for first note" },
-    { id: 2, title: "Second note", text: "Text for second note" },
-    { id: 3, title: "Third note", text: "Text for third note" },
-    // { id: 4, title: "Third note", text: "Text for third note" },
-    // { id: 5, title: "Third note", text: "Text for third note" },
-    // { id: 6, title: "Third note", text: "Text for third note" },
-    // { id: 7, title: "Third note", text: "Text for third note" },
-    // { id: 8, title: "Third note", text: "Text for third note" },
+    { id: 1, title: "First note", text: "Text for first note", dynamicStyles: {}},
+    { id: 2, title: "Second note", text: "Text for second note", dynamicStyles: {}},
+    { id: 3, title: "Third note", text: "Text for third note", dynamicStyles: {}},
   ]
 
 
@@ -35,11 +30,15 @@ const App = () => {
     setNotes([...notes, note]);
   }
 
+  const deleteNote = (id) => {
+    setNotes(notes.filter((note) => note.id !== id));
+  }
+
   return (
     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f3f3f3', height: '100%', paddingTop: 20 }}>
-      <NoteList notes={notes} />
+      <NoteList notes={notes} deleteNote={deleteNote}/>
       <ActionButton onPress={() => setModalVisible(!modalVisible)} />
-      <NewNoteForm modalVisible={modalVisible} setModalVisible={setModalVisible} addNewNote={addNewNote} />
+      <NewNoteForm modalVisible={modalVisible} setModalVisible={setModalVisible} addNewNote={addNewNote}/>
     </View>
   );
 };

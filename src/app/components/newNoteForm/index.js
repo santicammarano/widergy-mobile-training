@@ -4,12 +4,34 @@ import { View, Alert, Modal, Text, TextArea, StyleSheet, Pressable, TextInput } 
 const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [bold, setBold] = useState(false);
+  const [italic, setItalic] = useState(false);
 
   const submitNote = () => {
-    addNewNote({ title, text }); 
-    setModalVisible(!modalVisible);
+    if (title === "" || text === "") {
+      new Alert("You can't add an empty note. Please write down some text");
+    } else {
+      addNewNote({ title, text, dynamicStyles: {bold, italic} });
+      setModalVisible(!modalVisible);
+      setTitle("");
+      setText("");
+      setBold(false);
+      setItalic(false);
+    }
+  }
+
+  const emptyNote = () => {
     setTitle("");
     setText("");
+    setBold(false);
+    setItalic(false);
+  }
+
+  const changeFontStyle = {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: bold ? "bold" : "normal",
+    fontStyle: italic ? "italic" : "normal",
   }
 
   return (
@@ -32,19 +54,44 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
             placeholder="Untitled"
           />
           <TextInput
-            style={styles.input}
+            style={[styles.textInput, changeFontStyle]}
             onChangeText={setText}
             value={text}
             placeholder="Tap here to add some text"
             multiline={true}
             numberOfLines={4}
           />
+
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setBold(!bold)}
+            >
+              <Text style={styles.textStyle}>{bold ? "Unbold me" : "Bold me"}</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setItalic(!italic)}
+            >
+              <Text style={styles.textStyle}>{italic ? "Unitalic me" : "Italic me"}</Text>
+            </Pressable>
+
+          </View>
+
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => submitNote()}
           >
             <Text style={styles.textStyle}>Add note</Text>
           </Pressable>
+
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => emptyNote()}
+          >
+            <Text style={styles.textStyle}>Empty note</Text>
+          </Pressable>
+
 
           {/* <Pressable
             style={[styles.button, styles.buttonClose]}
@@ -65,9 +112,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   textInput: {
-    margin: 12,
+    // margin: 12,
     padding: 10,
-    fontSize: 24,
+    fontSize: 16,
   },
   centeredView: {
     flex: 1,
@@ -98,15 +145,15 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#fffff",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#ff55dd",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
