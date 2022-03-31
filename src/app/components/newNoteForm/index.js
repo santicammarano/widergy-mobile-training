@@ -6,12 +6,13 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
   const [text, setText] = useState("");
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
 
   const submitNote = () => {
     if (title === "" || text === "") {
       new Alert("You can't add an empty note. Please write down some text");
     } else {
-      addNewNote({ title, text, dynamicStyles: {bold, italic} });
+      addNewNote({ title, text, dynamicStyles: { bold, italic } });
       setModalVisible(!modalVisible);
       setTitle("");
       setText("");
@@ -25,6 +26,7 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
     setText("");
     setBold(false);
     setItalic(false);
+    setWordCount(0);
   }
 
   const changeFontStyle = {
@@ -32,6 +34,15 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
     fontSize: 16,
     fontWeight: bold ? "bold" : "normal",
     fontStyle: italic ? "italic" : "normal",
+  }
+
+  const updateText = (newText) => {
+    setText(newText);
+    setWordCount(text.trim().split(/\s+/).length);
+  }
+
+  const deleteLastChar = () => {
+    setText((prevText) => prevText.slice(0, -1));
   }
 
   return (
@@ -55,42 +66,52 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
           />
           <TextInput
             style={[styles.textInput, changeFontStyle]}
-            onChangeText={setText}
+            onChangeText={newText => updateText(newText)}
             value={text}
             placeholder="Tap here to add some text"
             multiline={true}
             numberOfLines={4}
           />
 
+          <Text style={styles.wordCountText}>{`Wordcount: ${wordCount}`}</Text>
+
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Pressable
-              style={[styles.button, styles.buttonClose]}
+              style={styles.button}
               onPress={() => setBold(!bold)}
             >
-              <Text style={styles.textStyle}>{bold ? "Unbold me" : "Bold me"}</Text>
+              <Text style={styles.textStyle}>B</Text>
             </Pressable>
             <Pressable
-              style={[styles.button, styles.buttonClose]}
+              style={styles.button}
               onPress={() => setItalic(!italic)}
             >
-              <Text style={styles.textStyle}>{italic ? "Unitalic me" : "Italic me"}</Text>
+              <Text style={styles.textStyle}>i</Text>
             </Pressable>
-
+            <Pressable
+              style={styles.button}
+              onPress={() => deleteLastChar()}
+            >
+              <Text style={styles.textStyle}>Del</Text>
+            </Pressable>
           </View>
 
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => submitNote()}
-          >
-            <Text style={styles.textStyle}>Add note</Text>
-          </Pressable>
 
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => emptyNote()}
-          >
-            <Text style={styles.textStyle}>Empty note</Text>
-          </Pressable>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Pressable
+              style={styles.button}
+              onPress={() => emptyNote()}
+            >
+              <Text style={styles.textStyle}>Empty note</Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.button}
+              onPress={() => submitNote()}
+            >
+              <Text style={styles.textStyle}>Add note</Text>
+            </Pressable>
+          </View>
 
 
           {/* <Pressable
@@ -115,6 +136,9 @@ const styles = StyleSheet.create({
     // margin: 12,
     padding: 10,
     fontSize: 16,
+  },
+  wordCountText: {
+    margin: 5,
   },
   centeredView: {
     flex: 1,
@@ -142,13 +166,9 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 5,
     padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#fffff",
-  },
-  buttonClose: {
+    elevation: 2,
     backgroundColor: "#ff55dd",
+    margin: 3,
   },
   textStyle: {
     color: "white",

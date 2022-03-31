@@ -14,7 +14,7 @@ const Note = ({ id, title, text, dynamicStyles, deleteNote }) => {
         <Text style={{ fontSize: 20 }}>{title}</Text>
         <Text style={[styles.noteText, setDynamicStyles]}>{text}</Text>
       </View>
-      <View>
+      <View>      
         <Pressable
           style={[styles.button, styles.buttonClose]}
           onPress={() => deleteNote(id)}

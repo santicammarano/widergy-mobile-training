@@ -15,9 +15,9 @@ import {
 
 const App = () => {
   const initialValue = [
-    { id: 1, title: "First note", text: "Text for first note", dynamicStyles: {}},
-    { id: 2, title: "Second note", text: "Text for second note", dynamicStyles: {}},
-    { id: 3, title: "Third note", text: "Text for third note", dynamicStyles: {}},
+    { id: 1, title: "First note", text: "Text for first note", dynamicStyles: {} },
+    { id: 2, title: "Second note", text: "Text for second note", dynamicStyles: {} },
+    { id: 3, title: "Third note", text: "Text for third note", dynamicStyles: {} },
   ]
 
 
@@ -36,14 +36,19 @@ const App = () => {
 
   return (
     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f3f3f3', height: '100%', paddingTop: 20 }}>
-      <NoteList notes={notes} deleteNote={deleteNote}/>
+      <Text style={styles.title}>NOTIFY</Text>
+      <NoteList notes={notes} deleteNote={deleteNote} />
       <ActionButton onPress={() => setModalVisible(!modalVisible)} />
-      <NewNoteForm modalVisible={modalVisible} setModalVisible={setModalVisible} addNewNote={addNewNote}/>
+      <NewNoteForm modalVisible={modalVisible} setModalVisible={setModalVisible} addNewNote={addNewNote} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
