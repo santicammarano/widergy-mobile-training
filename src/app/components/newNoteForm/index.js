@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { View, Alert, Modal, Text, TextArea, StyleSheet, Pressable, TextInput } from 'react-native'
+import { View, Alert, Modal, Text, Pressable, TextInput } from 'react-native'
+import styles from "./styles"
 
 const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
   const [title, setTitle] = useState("");
@@ -9,8 +10,11 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
   const [wordCount, setWordCount] = useState(0);
 
   const submitNote = () => {
-    if (title === "" || text === "") {
-      new Alert("You can't add an empty note. Please write down some text");
+    if (title === "") {
+      new Alert.alert("You can't add a note without a title. Please write it.");
+    }
+    else if (text === "") {
+      new Alert.alert("You can't add an empty note. Please write down some text.");
     } else {
       addNewNote({ title, text, dynamicStyles: { bold, italic } });
       setModalVisible(!modalVisible);
@@ -102,83 +106,28 @@ const NewNoteForm = ({ modalVisible, setModalVisible, addNewNote }) => {
               style={styles.button}
               onPress={() => emptyNote()}
             >
-              <Text style={styles.textStyle}>Empty note</Text>
+              <Text style={styles.textStyle}>Empty</Text>
             </Pressable>
 
             <Pressable
               style={styles.button}
               onPress={() => submitNote()}
             >
-              <Text style={styles.textStyle}>Add note</Text>
+              <Text style={styles.textStyle}>Save note</Text>
             </Pressable>
           </View>
 
-
-          {/* <Pressable
-            style={[styles.button, styles.buttonClose]}
+          <Pressable
+            style={styles.buttonClose}
             onPress={() => setModalVisible(!modalVisible)}
           >
             <Text style={styles.textStyle}>Close modal</Text>
-          </Pressable> */}
+          </Pressable>
         </View>
+
       </View>
     </Modal>
   )
 }
-
-const styles = StyleSheet.create({
-  titleInput: {
-    margin: 12,
-    padding: 10,
-    fontSize: 24,
-  },
-  textInput: {
-    // margin: 12,
-    padding: 10,
-    fontSize: 16,
-  },
-  wordCountText: {
-    margin: 5,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    width: 300,
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  button: {
-    borderRadius: 5,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: "#ff55dd",
-    margin: 3,
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
-});
 
 export default NewNoteForm;

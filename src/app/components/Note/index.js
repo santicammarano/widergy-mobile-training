@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
+import styles from "./styles"
 
 const Note = ({ id, title, text, dynamicStyles, deleteNote }) => {
 
@@ -9,14 +10,14 @@ const Note = ({ id, title, text, dynamicStyles, deleteNote }) => {
   }
 
   return (
-    <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: "#d4d4d4", padding: 20, width: 350, margin: 5, borderRadius: 5 }}>
+    <View style={styles.noteContainer}>
       <View>
-        <Text style={{ fontSize: 20 }}>{title}</Text>
+        <Text style={styles.noteTitle}>{title}</Text>
         <Text style={[styles.noteText, setDynamicStyles]}>{text}</Text>
       </View>
-      <View>      
+      <View>
         <Pressable
-          style={[styles.button, styles.buttonClose]}
+          style={styles.closeButton}
           onPress={() => deleteNote(id)}
         >
           <Text>X</Text>
@@ -25,17 +26,5 @@ const Note = ({ id, title, text, dynamicStyles, deleteNote }) => {
     </View>
   )
 }
-
-
-const styles = StyleSheet.create({
-  noteText: {
-  },
-  button: {
-    borderRadius: 5,
-    padding: 7,
-    backgroundColor: "red",
-  },
-
-})
 
 export default Note;

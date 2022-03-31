@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 const App = () => {
-  const initialValue = [
+  const initialState = [
     { id: 1, title: "First note", text: "Text for first note", dynamicStyles: {} },
     { id: 2, title: "Second note", text: "Text for second note", dynamicStyles: {} },
     { id: 3, title: "Third note", text: "Text for third note", dynamicStyles: {} },
@@ -22,7 +22,7 @@ const App = () => {
 
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [notes, setNotes] = useState(initialValue);
+  const [notes, setNotes] = useState(initialState);
 
 
   const addNewNote = (note) => {
