@@ -1,49 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import NoteList from './src/app/components/NoteList';
-import NewNoteForm from './src/app/components/newNoteForm';
-import ActionButton from 'react-native-simple-action-button';
-import styles from './styles';
-
-import {Text, View} from 'react-native';
+import React from 'react';
+import Home from './src/app/components/Home';
+import History from './src/app/components/History';
+import {NavigationContainer} from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const App = () => {
-  // Initial values for the notes state
-  const initialState = [
-    {
-      id: 1,
-      title: 'First note',
-      text: 'Text for first note',
-      dynamicStyles: {},
-    },
-  ];
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [notes, setNotes] = useState(initialState);
-  let ids = 2;
-
-  // We return an array with the current notes plus the new note
-  const addNewNote = note => {
-    note.id = ids;
-    ids++;
-    setNotes([...notes, note]);
-  };
-
-  // We return an array with the current notes except the one we want to delete
-  const deleteNote = id => {
-    setNotes(notes.filter(note => note.id !== id));
-  };
+  const Tab = createBottomTabNavigator();
 
   return (
-    <View style={styles.mainContainer}>
-      <Text style={styles.title}>NOTIFY</Text>
-      <NoteList notes={notes} deleteNote={deleteNote} />
-      <ActionButton onPress={() => setModalVisible(!modalVisible)} />
-      <NewNoteForm
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        addNewNote={addNewNote}
-      />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="History" component={History} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
