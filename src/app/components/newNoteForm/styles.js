@@ -1,65 +1,54 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  flexRow: {display: 'flex', flexDirection: 'row'},
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    elevation: 2,
+    width: 300,
+    borderRadius: 20,
+    padding: 30,
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
   titleInput: {
     margin: 12,
     padding: 10,
     fontSize: 24,
   },
   textInput: {
-    // margin: 12,
-    padding: 10,
     fontSize: 16,
   },
   wordCountText: {
     margin: 5,
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    width: 300,
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
   button: {
-    borderRadius: 5,
-    padding: 10,
+    borderRadius: 4,
+    padding: 6,
     elevation: 2,
-    backgroundColor: "#ff55dd",
     margin: 3,
+    backgroundColor: '#ff55dd',
   },
   buttonClose: {
-    borderRadius: 5,
-    padding: 10,
+    padding: 8,
     elevation: 2,
-    backgroundColor: "red",
-    margin: 3,
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    marginTop: 3,
+    borderRadius: 4,
+    backgroundColor: 'red',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
+  buttonTextStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
