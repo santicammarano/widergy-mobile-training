@@ -5,6 +5,7 @@ import ActionButton from 'react-native-simple-action-button';
 
 import {Text, View, Button} from 'react-native';
 import styles from './styles';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const Home = ({navigation}) => {
   // Initial values for the notes state
@@ -38,6 +39,11 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.title}>NOTIFY</Text>
+      <Pressable
+        onPress={() => navigation.navigate('History')}
+        style={styles.historyButton}>
+        <Text style={styles.historyButtonText}>History</Text>
+      </Pressable>
       <NoteList notes={notes} deleteNote={deleteNote} />
       <ActionButton onPress={() => setModalVisible(!modalVisible)} />
       <NewNoteForm
@@ -45,7 +51,6 @@ const Home = ({navigation}) => {
         setModalVisible={setModalVisible}
         addNewNote={addNewNote}
       />
-      <Button title="Home" onPress={() => navigation.navigate('Home')} />;
     </View>
   );
 };

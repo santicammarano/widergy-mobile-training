@@ -13,22 +13,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  historyButton: {
+    borderRadius: 4,
+    padding: 6,
+    elevation: 2,
+    margin: 10,
+    backgroundColor: '#ff55dd',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  historyButtonText: {
+    fontWeight: "bold",
+    color: "#fff",
+    textTransform: "uppercase"
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+
 });
 
 export default styles;
