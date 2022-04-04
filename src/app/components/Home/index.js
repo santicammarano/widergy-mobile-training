@@ -3,10 +3,10 @@ import NoteList from './components/NoteList';
 import NewNoteForm from './components/newNoteForm';
 import ActionButton from 'react-native-simple-action-button';
 
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
 import styles from './styles';
 
-const Home = () => {
+const Home = ({navigation}) => {
   // Initial values for the notes state
   const initialState = [
     {
@@ -44,7 +44,8 @@ const Home = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         addNewNote={addNewNote}
-        />
+      />
+      <Button title="Home" onPress={() => navigation.navigate('Home')} />;
     </View>
   );
 };
