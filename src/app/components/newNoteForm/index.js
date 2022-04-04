@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {View, Alert, Modal, Text, Pressable, TextInput} from 'react-native';
 import styles from './styles';
+import { updateTextStyles } from '../../../utils/updateTextStyles';
+import newFormUtils from '../../../utils/newFormUtils';
 
 const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
   const [title, setTitle] = useState('');
@@ -18,11 +20,8 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
       Alert.alert("You can't add an empty note. Please write down some text.");
     } else {
       addNewNote({title, text, dynamicStyles: {bold, italic}});
-      setModalVisible(!modalVisible);
-      setTitle('');
-      setText('');
-      setBold(false);
-      setItalic(false);
+      emptyNote();
+      setModalVisible(false);
     }
   };
 
@@ -36,23 +35,20 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
   };
 
   // Dynamic styles for the inputs
-  const changeFontStyle = {
-    padding: 10,
-    fontSize: 16,
-    fontWeight: bold ? 'bold' : 'normal',
-    fontStyle: italic ? 'italic' : 'normal',
-  };
+  const newStyles = useMemo(() => updateTextStyles(bold, italic), [bold, italic]);
 
-  // Update state and word count according to the user input
-  const updateText = newText => {
-    setText(newText);
-    setWordCount(text.trim().split(/\s+/).length);
-  };
+  // // Update state and word count according to the user input
+  // const updateText = newText => {
+  //   setText(newText);
+  //   setWordCount(text.trim().split(/\s+/).length);
+  // };
 
-  // Delete the last written character of the text input
-  const deleteLastChar = () => {
-    setText(prevText => prevText.slice(0, -1));
-  };
+  // // Delete the last written character of the text input
+  // const deleteLastChar = () => {
+  //   setText(prevText => prevText.slice(0, -1));
+  // };
+
+  const {updateText, deleteLastChar} = newFormUtils(text, setText, setWordCount);
 
   return (
     <Modal
@@ -72,7 +68,7 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
             placeholder="Untitled"
           />
           <TextInput
-            style={[styles.textInput, changeFontStyle]}
+            style={[styles.textInput, newStyles]}
             onChangeText={newText => updateText(newText)}
             value={text}
             placeholder="Tap here to add some text"

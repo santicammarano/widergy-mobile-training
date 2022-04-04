@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import NoteList from './src/app/components/NoteList';
 import NewNoteForm from './src/app/components/newNoteForm';
 import ActionButton from 'react-native-simple-action-button';
+import noteUtils from './src/utils/noteUtils';
 import styles from './styles';
 
 import {Text, View} from 'react-native';
@@ -19,19 +20,21 @@ const App = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [notes, setNotes] = useState(initialState);
-  let ids = 2;
 
-  // We return an array with the current notes plus the new note
-  const addNewNote = note => {
-    note.id = ids;
-    ids++;
-    setNotes([...notes, note]);
-  };
+  // let ids = 2;
+  // // We return an array with the current notes except the one we want to delete
+  // const deleteNote = id => {
+  //   setNotes(notes.filter(note => note.id !== id));
+  // };
 
-  // We return an array with the current notes except the one we want to delete
-  const deleteNote = id => {
-    setNotes(notes.filter(note => note.id !== id));
-  };
+  // // We return an array with the current notes plus the new note
+  // const addNewNote = note => {
+  //   note.id = ids;
+  //   ids++;
+  //   setNotes([...notes, note]);
+  // };
+
+  const {addNewNote, deleteNote} = noteUtils(notes, setNotes);
 
   return (
     <View style={styles.mainContainer}>
