@@ -37,17 +37,6 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
   // Dynamic styles for the inputs
   const newStyles = useMemo(() => updateTextStyles(bold, italic), [bold, italic]);
 
-  // // Update state and word count according to the user input
-  // const updateText = newText => {
-  //   setText(newText);
-  //   setWordCount(text.trim().split(/\s+/).length);
-  // };
-
-  // // Delete the last written character of the text input
-  // const deleteLastChar = () => {
-  //   setText(prevText => prevText.slice(0, -1));
-  // };
-
   const {updateText, deleteLastChar} = newFormUtils(text, setText, setWordCount);
 
   return (
