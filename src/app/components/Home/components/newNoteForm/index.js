@@ -1,8 +1,8 @@
 import React, {useState, useMemo} from 'react';
 import {View, Alert, Modal, Text, Pressable, TextInput} from 'react-native';
 import styles from './styles';
-import { updateTextStyles } from '../../../utils/updateTextStyles';
-import newFormUtils from '../../../utils/newFormUtils';
+import { updateTextStyles } from '../../../../../utils/updateTextStyles';
+import newFormUtils from '../../../../../utils/newFormUtils';
 
 const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
   const [title, setTitle] = useState('');

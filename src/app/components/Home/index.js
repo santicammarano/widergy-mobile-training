@@ -32,7 +32,7 @@ const Home = ({navigation}) => {
         style={styles.historyButton}>
         <Text style={styles.historyButtonText}>History</Text>
       </Pressable>
-      <NoteList notes={notes} deleteNote={deleteNote} />
+      <NoteList deleteNote={deleteNote} />
       <ActionButton onPress={() => setModalVisible(!modalVisible)} />
       <NewNoteForm
         modalVisible={modalVisible}
