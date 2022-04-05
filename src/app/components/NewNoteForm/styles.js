@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 6,
     elevation: 2,
     margin: 3,
-    backgroundColor: '#ff55dd',
+    backgroundColor: '#ed686e',
   },
   buttonClose: {
     padding: 8,

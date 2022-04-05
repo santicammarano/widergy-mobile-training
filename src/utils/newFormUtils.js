@@ -1,16 +1,29 @@
-const newFormUtils = (text, setText, setWordCount) => {
-  
+const newFormUtils = (
+  text,
+  setText,
+  setWordCount,
+  setTitle,
+  setBold,
+  setItalic,
+) => {
   const updateText = newText => {
     setText(newText);
-    setWordCount(text.trim().split(/\s+/).length);
+    setWordCount(text?.trim().split(/\s+/).length);
   };
 
-  // Delete the last written character of the text input
   const deleteLastChar = () => {
     setText(prevText => prevText.slice(0, -1));
   };
 
-  return {updateText, deleteLastChar};
+  const updateCurrentNote = currentNote => {
+    setTitle(currentNote?.title);
+    setBold(currentNote?.dynamicStyles.bold);
+    setItalic(currentNote?.dynamicStyles.italic);
+    setText(currentNote?.text);
+    setWordCount(currentNote?.text.trim().split(/\s+/).length);
+  };
+
+  return {updateText, deleteLastChar, updateCurrentNote};
 };
 
 export default newFormUtils;

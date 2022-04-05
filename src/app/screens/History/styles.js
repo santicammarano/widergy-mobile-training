@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     padding: 6,
     elevation: 2,
     margin: 10,
-    backgroundColor: '#ff55dd',
+    backgroundColor: '#ed686e',
   },
   homeButtonText: {
     fontWeight: "bold",

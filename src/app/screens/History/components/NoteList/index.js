@@ -2,13 +2,12 @@ import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import Note from '../Note';
 import styles from './styles';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-const NoteList = ({deleteNote}) => {
-  const dispatch = useDispatch();
+const NoteList = ({...props}) => {
   const notes = useSelector(state => state.notes);
 
-  const renderNote = ({item}) => <Note {...item} deleteNote={deleteNote} />;
+  const renderNote = ({item}) => <Note {...item} {...props}/>;
 
   return (
     <View style={styles.listContainer}>
