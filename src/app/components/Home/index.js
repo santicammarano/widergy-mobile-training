@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import NoteList from './components/NoteList';
 import NewNoteForm from './components/newNoteForm';
 import ActionButton from 'react-native-simple-action-button';
+import noteUtils from '../../../utils/noteUtils';
 
-import {Text, View, Button} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
@@ -21,20 +22,7 @@ const Home = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [notes, setNotes] = useState(initialState);
 
-  // Initializated in 2 for development purposes only (:
-  let ids = 2;
-
-  // We return an array with the current notes plus the new note
-  const addNewNote = note => {
-    note.id = ids;
-    ids++;
-    setNotes([...notes, note]);
-  };
-
-  // We return an array with the current notes except the one we want to delete
-  const deleteNote = id => {
-    setNotes(notes.filter(note => note.id !== id));
-  };
+  const {addNewNote, deleteNote} = noteUtils(notes, setNotes);
 
   return (
     <View style={styles.mainContainer}>

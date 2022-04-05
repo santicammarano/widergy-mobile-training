@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const App = () => {
   const Tab = createBottomTabNavigator();
-  // const {addNewNote, deleteNote} = noteUtils(notes, setNotes);
 
   return (
     <NavigationContainer>
