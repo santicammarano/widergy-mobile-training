@@ -1,6 +1,5 @@
-import {createStore} from 'redux';
-import notesReducer from './notes/reducer'
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk'
+import notesReducer from './notesApi/reducer'
 
-// Later, we will apply redux-thunk middleware as a second parameter to the store
-// And import a combinedReducer instead of the notesReducer (when new functionalities come)
-export const store = createStore(notesReducer);
+export const store = createStore(notesReducer, applyMiddleware(thunk));
