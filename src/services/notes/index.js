@@ -1,13 +1,13 @@
-import api from '../../config/api';
+import notesApi from '../../config/api';
 
 export const getNotes = () =>
-  api.get('https://private-10516-apitest342.apiary-mock.com/notes');
+  notesApi.get('/notes');
 
 export const addNote = note =>
-  api.post('https://private-10516-apitest342.apiary-mock.com/notes', note);
+notesApi.post('/notes', note);
 
 export const editNote = note =>
-  api.put('https://private-10516-apitest342.apiary-mock.com/notes', note);
+notesApi.put('/notes', note);
 
 export const deleteNote = note =>
-  api.delete('https://private-10516-apitest342.apiary-mock.com/notes', note);
+notesApi.delete('/notes', note);
