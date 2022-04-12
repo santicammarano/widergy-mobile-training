@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
     color: 'red',
     fontWeight: 'bold',
   },
+
+  title: {
+    fontSize: 24,
+    color: 'black',
+    marginBottom: 10,
+  },
 });
 
 export default styles;

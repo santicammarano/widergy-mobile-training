@@ -2,7 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 import {View, Alert, Modal, Text, Pressable, TextInput} from 'react-native';
 import styles from './styles';
 import {updateTextStyles} from '../../../utils/updateTextStyles';
-import newFormUtils from '../../../utils/newFormUtils';
+import newNoteFormUtils from '../../../utils/newNoteFormUtils';
 import {useDispatch} from 'react-redux';
 import {actionsCreator} from '../../../redux/notesApi/actions';
 
@@ -61,7 +61,7 @@ const NewNoteForm = ({
     [bold, italic],
   );
 
-  const {updateText, deleteLastChar, updateCurrentNote} = newFormUtils(
+  const {updateText, deleteLastChar, updateCurrentNote} = newNoteFormUtils(
     text,
     setText,
     setWordCount,

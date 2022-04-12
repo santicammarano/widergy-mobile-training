@@ -17,12 +17,13 @@ export const actionsCreator = {
     payload: lastName,
   }),
 
-  uploadForm: form => async dispatch => {
+  uploadForm: form => async () => {
     const response = await submitForm(form);
     if (response.ok) {
-      Alert.alert('Form submitted succesfuly');
+      const {first_name, last_name} = form;
+      Alert.alert(`Thank you ${first_name} ${last_name} for your opinion!`);
     } else {
-      Alert.alert('Form not submitted succesfuly');
+      Alert.alert('We could not process your opinion. Sorry!');
     }
   },
 };

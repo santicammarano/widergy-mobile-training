@@ -5,22 +5,27 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {connect, useDispatch} from 'react-redux';
 import {actionsCreator as pollActions} from '../../../../../redux/poll/actions';
+import {
+  normalizeName,
+  normalizePhoneNumber,
+} from '../../../../../utils/pollFormUtils';
 
 const {addFirstName, addLastName, uploadForm} = pollActions;
 
+// Form validation
 const validate = values => {
   const errors = {};
   if (!values.first_name) {
-    errors.first_name = 'Required';
+    errors.first_name = 'First name required';
   }
   if (!values.last_name) {
-    errors.last_name = 'Required';
+    errors.last_name = 'Last name required';
   }
   if (!values.app_feedback) {
-    errors.app_feedback = 'Required';
+    errors.app_feedback = 'App feedback required';
   }
   if (!values.phone_number) {
-    errors.phone_number = 'Required';
+    errors.phone_number = 'Phone number required';
   } else if (isNaN(Number(values.phone_number))) {
     errors.phone_number = 'Must be a number';
   } else if (values.phone_number.length > 10) {
@@ -30,10 +35,12 @@ const validate = values => {
   return errors;
 };
 
+// Dispatch async action to submit form to API
 const onSubmit = (values, dispatch) => {
   dispatch(uploadForm(values));
 };
 
+// Render component
 const TextInputField = ({
   input,
   label,
@@ -57,17 +64,11 @@ const TextInputField = ({
   </View>
 );
 
-let PollForm = ({
-  handleSubmit,
-  pristine,
-  submitting,
-  reset,
-  firstName,
-  lastName,
-}) => {
+let PollForm = ({handleSubmit, reset, firstName, lastName}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  // Store first and last name in our store
   const handleCancel = () => {
     dispatch(addFirstName(firstName));
     dispatch(addLastName(lastName));
@@ -77,23 +78,20 @@ let PollForm = ({
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Give us your opinion!</Text>
       <Field
         name="first_name"
         type="text"
         component={TextInputField}
         label="First name"
-        normalize={(val, prevVal) =>
-          (val || prevVal || '').replace(/[^a-zA-Z]/g, '')
-        }
+        normalize={normalizeName}
       />
       <Field
         name="last_name"
         type="text"
         component={TextInputField}
         label="Last name"
-        normalize={(val, prevVal) =>
-          (val || prevVal || '').replace(/[^a-zA-Z]/g, '')
-        }
+        normalize={normalizeName}
       />
       <Field
         name="app_feedback"
@@ -108,15 +106,13 @@ let PollForm = ({
         keyboardType={'numeric'}
         component={TextInputField}
         label="Phone Number"
-        normalize={(val, prevVal) =>
-          (val || prevVal || '').replace(/[^\d]/g, '')
-        }
+        normalize={normalizePhoneNumber}
       />
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitText}>Enviar</Text>
+        <Text style={styles.submitText}>Send</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
-        <Text style={styles.cancelText}>Cancelar</Text>
+      <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
+        <Text style={styles.cancelText}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
@@ -126,8 +122,10 @@ PollForm = reduxForm({
   form: 'pollForm',
   validate,
   onSubmit,
+  enableReinitialize: true,
 })(PollForm);
 
+// Subscribe to a piece of state
 PollForm = connect(
   state => ({
     initialValues: state.poll,
@@ -135,6 +133,7 @@ PollForm = connect(
   {addFirstName, addLastName},
 )(PollForm);
 
+// Select input Field values in order to pass them as props to the form and access them later
 PollForm = connect(state => {
   const firstName = state.form.pollForm?.values?.first_name;
   const lastName = state.form.pollForm?.values?.last_name;
