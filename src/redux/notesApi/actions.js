@@ -1,23 +1,13 @@
-import {createTypes} from 'redux-recompose';
+import {createTypes, completeTypes} from 'redux-recompose';
 import {getNotes, addNote, editNote, deleteNote} from '../../services/notes';
 
 export const actions = createTypes(
-  [
-    'GET_NOTES',
-    'GET_NOTES_SUCCESS',
-    'GET_NOTES_FAILURE',
-    'ADD_NOTE',
-    'ADD_NOTE_SUCCESS',
-    'ADD_NOTE_FAILURE',
-    'DELETE_NOTE',
-    'DELETE_NOTE_SUCCESS',
-    'DELETE_NOTE_FAILURE',
-    'EDIT_NOTE',
-    'EDIT_NOTE_SUCCESS',
-    'EDIT_NOTE_FAILURE',
-  ],
+  completeTypes({
+    primaryActions: ['GET_NOTES', 'ADD_NOTE', 'DELETE_NOTE', 'EDIT_NOTE'],
+  }),
   '@NOTESAPI',
 );
+
 
 const privateActionsCreator = {
   getNotesSuccess: notes => ({
