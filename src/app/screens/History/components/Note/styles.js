@@ -1,12 +1,12 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   noteContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#d4d4d4",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#303236',
     padding: 20,
     width: 350,
     margin: 5,
@@ -14,16 +14,16 @@ const styles = StyleSheet.create({
   },
   noteTitle: {
     fontSize: 20,
+    color: '#ed686e',
   },
   noteText: {
     fontSize: 13,
+    color: 'white',
   },
   closeButton: {
-    // borderRadius: 5,
-    // padding: 7,
-    // backgroundColor: "red",4
+    color: 'white',
+    fontSize: 18,
   },
-
-})
+});
 
 export default styles;

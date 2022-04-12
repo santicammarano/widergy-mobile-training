@@ -3,6 +3,8 @@ import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 import {useDispatch} from 'react-redux';
 import {actionsCreator} from '../../../../../redux/notesApi/actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
   const setDynamicStyles = {
@@ -25,7 +27,7 @@ const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
           <Pressable
             style={styles.closeButton}
             onPress={() => dispatch(deleteNote({id, title, text, dynamicStyles}))}>
-            <Text>X</Text>
+            <Icon name="close" style={styles.closeButton} />
           </Pressable>
         </View>
       </View>

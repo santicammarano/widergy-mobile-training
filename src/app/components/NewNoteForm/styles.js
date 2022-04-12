@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  flexRow: {display: 'flex', flexDirection: 'row'},
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -16,6 +15,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
+  modalText: {
+    color: '#ed686e',
+    fontWeight: '600',
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  wordContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+  },
+  toolsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#f3f3f3',
+    padding: 5,
+    borderRadius: 5,
+    marginVertical: 10,
+    width: '80%',
+    gap: 10,
+  },
+  closeButtonContainer: {
+    alignSelf: 'flex-end',
+  },
+  closeButton: {
+    fontSize: 18,
+  },
+  toolButton: {
+    fontSize: 24,
+  },
   titleInput: {
     margin: 12,
     padding: 10,
@@ -27,27 +59,17 @@ const styles = StyleSheet.create({
   wordCountText: {
     margin: 5,
   },
-  button: {
+  submitButton: {
     borderRadius: 4,
     padding: 6,
     elevation: 2,
-    margin: 3,
-    backgroundColor: '#ed686e',
+    marginTop: 15,
+    width: 120,
   },
-  buttonClose: {
-    padding: 8,
-    elevation: 2,
-    marginTop: 3,
-    borderRadius: 4,
-    backgroundColor: 'red',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  buttonTextStyle: {
+  submitButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

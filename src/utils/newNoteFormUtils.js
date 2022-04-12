@@ -8,11 +8,11 @@ const newFormUtils = (
 ) => {
   const updateText = newText => {
     setText(newText);
-    setWordCount(text?.trim().split(/\s+/).length);
+    setWordCount(newText?.trim().split(/\s+/).length);
   };
 
   const deleteLastChar = () => {
-    setText(prevText => prevText.slice(0, -1));
+    setText(prevText => prevText?.slice(0, -1));
   };
 
   const updateCurrentNote = currentNote => {
@@ -20,7 +20,7 @@ const newFormUtils = (
     setBold(currentNote?.dynamicStyles.bold);
     setItalic(currentNote?.dynamicStyles.italic);
     setText(currentNote?.text);
-    setWordCount(currentNote?.text.trim().split(/\s+/).length);
+    setWordCount(currentNote?.text.trim().split(/\s+/).length || 0);
   };
 
   return {updateText, deleteLastChar, updateCurrentNote};

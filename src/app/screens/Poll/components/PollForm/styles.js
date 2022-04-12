@@ -14,13 +14,14 @@ const styles = StyleSheet.create({
   submitText: {
     color: 'white',
     fontSize: 20,
+    fontWeight: '600',
   },
 
   cancelButton: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#303236',
     height: 50,
     marginTop: 10,
     width: 350,
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   cancelText: {
     color: 'white',
     fontSize: 20,
+    fontWeight: '600',
   },
 
   container: {
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+    backgroundColor: 'white',
   },
 
   input: {
@@ -43,8 +46,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50,
     width: 350,
-    margin: 10,
+    marginVertical: 2,
     padding: 10,
+  },
+
+  inputContainer: {
+    marginVertical: 7,
   },
 
   requiredWarning: {
@@ -54,7 +61,8 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 24,
-    color: 'black',
+    color: '#ed686e',
+    fontWeight: '600',
     marginBottom: 10,
   },
 });

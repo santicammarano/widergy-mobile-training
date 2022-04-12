@@ -36,6 +36,13 @@ const App = () => {
             tabBarActiveTintColor: '#ed686e',
             tabBarInactiveTintColor: 'gray',
             headerShown: false,
+            tabBarStyle: {
+              height: 60,
+            },
+            tabBarLabelStyle: {
+              fontSize: 12,
+              paddingBottom: 3,
+            }
           })}>
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="History" component={History} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, Text, TouchableOpacity} from 'react-native';
+import {View, TextInput, Text, Pressable} from 'react-native';
 import {reduxForm, Field} from 'redux-form';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
@@ -9,13 +9,14 @@ import {
   normalizeName,
   normalizePhoneNumber,
 } from '../../../../../utils/pollFormUtils';
+import LinearGradient from 'react-native-linear-gradient';
 
 const {addFirstName, addLastName, uploadForm} = pollActions;
 
 // Form validation
 const validate = values => {
   const errors = {};
-  if (!values.first_name) {
+  if (!values.first_name || values.first_name === undefined) {
     errors.first_name = 'First name required';
   }
   if (!values.last_name) {
@@ -48,7 +49,7 @@ const TextInputField = ({
   meta: {touched, error},
   keyboardType,
 }) => (
-  <View>
+  <View style={styles.inputContainer}>
     <Text>{label}</Text>
     <View>
       <TextInput
@@ -64,21 +65,27 @@ const TextInputField = ({
   </View>
 );
 
-let PollForm = ({handleSubmit, reset, firstName, lastName}) => {
+let PollForm = ({handleSubmit, reset, firstName, lastName, pristine}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   // Store first and last name in our store
   const handleCancel = () => {
-    dispatch(addFirstName(firstName));
-    dispatch(addLastName(lastName));
+    if (firstName !== undefined) {
+      dispatch(addFirstName(firstName));
+    }
+
+    if (lastName !== undefined) {
+      dispatch(addLastName(lastName));
+    }
+
     reset();
     navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Give us your opinion!</Text>
+      <Text style={styles.title}>Give us your opinion</Text>
       <Field
         name="first_name"
         type="text"
@@ -108,12 +115,16 @@ let PollForm = ({handleSubmit, reset, firstName, lastName}) => {
         label="Phone Number"
         normalize={normalizePhoneNumber}
       />
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitText}>Send</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
+      <Pressable onPress={handleSubmit} disabled={pristine}>
+        <LinearGradient
+          colors={['#ed686e', '#ec5459']}
+          style={styles.submitButton}>
+          <Text style={styles.submitText}>Send</Text>
+        </LinearGradient>
+      </Pressable>
+      <Pressable style={styles.cancelButton} onPress={handleCancel}>
         <Text style={styles.cancelText}>Cancel</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
