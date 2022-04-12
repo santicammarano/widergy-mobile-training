@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 22,
   },
 });
 

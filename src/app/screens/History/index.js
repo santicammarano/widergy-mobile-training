@@ -11,7 +11,7 @@ const History = ({navigation}) => {
   const [currentNote, setCurrentNote] = useState(null);
 
   const dispatch = useDispatch();
-  const {getNotes} = actionsCreator;
+  const getNotes = actionsCreator.getNotes;
 
   const handleNotePressed = note => {
     setCurrentNote(note);

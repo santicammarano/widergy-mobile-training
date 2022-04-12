@@ -5,7 +5,6 @@ import {useDispatch} from 'react-redux';
 import {actionsCreator} from '../../../../../redux/notesApi/actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
 const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
   const setDynamicStyles = {
     fontWeight: dynamicStyles?.bold ? 'bold' : 'normal',
@@ -13,7 +12,7 @@ const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
   };
 
   const dispatch = useDispatch();
-  const {deleteNote} = actionsCreator;
+  const deleteNote = actionsCreator.deleteNote;
 
   return (
     <Pressable
@@ -26,7 +25,9 @@ const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
         <View>
           <Pressable
             style={styles.closeButton}
-            onPress={() => dispatch(deleteNote({id, title, text, dynamicStyles}))}>
+            onPress={() =>
+              dispatch(deleteNote({id, title, text, dynamicStyles}))
+            }>
             <Icon name="close" style={styles.closeButton} />
           </Pressable>
         </View>

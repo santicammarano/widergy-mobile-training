@@ -22,7 +22,8 @@ const NewNoteForm = ({
   const [wordCount, setWordCount] = useState(0);
 
   const dispatch = useDispatch();
-  const {addNote, editNote} = actionsCreator;
+  const addNote = actionsCreator.addNote;
+  const editNote = actionsCreator.editNote;
 
   useEffect(() => {
     updateCurrentNote(currentNote);

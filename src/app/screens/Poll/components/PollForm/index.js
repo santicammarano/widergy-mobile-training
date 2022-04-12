@@ -11,7 +11,9 @@ import {
 } from '../../../../../utils/pollFormUtils';
 import LinearGradient from 'react-native-linear-gradient';
 
-const {addFirstName, addLastName, uploadForm} = pollActions;
+const addFirstName = pollActions.addFirstName;
+const addLastName = pollActions.addLastName;
+const uploadForm = pollActions.uploadForm;
 
 // Form validation
 const validate = values => {
