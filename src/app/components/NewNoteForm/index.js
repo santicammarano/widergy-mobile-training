@@ -1,27 +1,48 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {View, Alert, Modal, Text, Pressable, TextInput} from 'react-native';
 import styles from './styles';
-import { updateTextStyles } from '../../../../../utils/updateTextStyles';
-import newFormUtils from '../../../../../utils/newFormUtils';
+import {updateTextStyles} from '../../../utils/updateTextStyles';
+import newFormUtils from '../../../utils/newFormUtils';
+import {useDispatch} from 'react-redux';
+import {actionsCreator} from '../../../redux/notes/actions';
 
-const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
+const NewNoteForm = ({
+  modalVisible,
+  setModalVisible,
+  navigation,
+  currentNote,
+}) => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
   const [wordCount, setWordCount] = useState(0);
 
-  // Add a new note with the given function via props
-  // Finally, reset our inputs for the next note
+  const dispatch = useDispatch();
+  const {addNote, editNote} = actionsCreator;
+
+  useEffect(() => {
+    updateCurrentNote(currentNote);
+  }, [currentNote, updateCurrentNote]);
+
   const submitNote = () => {
-    if (title === '') {
-      Alert.alert("You can't add a note without a title. Please write it.");
-    } else if (text === '') {
-      Alert.alert("You can't add an empty note. Please write down some text.");
+    if (!title || title === '') {
+      Alert.alert(
+        "You can't add/edit a note without a title. Please write it.",
+      );
+    } else if (!text || text === '') {
+      Alert.alert(
+        "You can't add/edit an empty note. Please write down some text.",
+      );
     } else {
-      addNewNote({title, text, dynamicStyles: {bold, italic}});
+      const id = currentNote?.id;
+      !currentNote
+        ? dispatch(addNote({title, text, dynamicStyles: {bold, italic}}))
+        : dispatch(editNote({id, title, text, dynamicStyles: {bold, italic}}));
+
       emptyNote();
       setModalVisible(false);
+      navigation.navigate('History');
     }
   };
 
@@ -35,9 +56,20 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
   };
 
   // Dynamic styles for the inputs
-  const newStyles = useMemo(() => updateTextStyles(bold, italic), [bold, italic]);
+  const newStyles = useMemo(
+    () => updateTextStyles(bold, italic),
+    [bold, italic],
+  );
 
-  const {updateText, deleteLastChar} = newFormUtils(text, setText, setWordCount);
+  const {updateText, deleteLastChar, updateCurrentNote} = newFormUtils(
+    text,
+    setText,
+    setWordCount,
+    setTitle,
+    setBold,
+    setItalic,
+    currentNote,
+  );
 
   return (
     <Modal
@@ -49,7 +81,9 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
       }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Add a new note!</Text>
+          <Text style={styles.modalText}>
+            {currentNote ? 'Edit' : 'Add'} a new note!
+          </Text>
           <TextInput
             style={styles.titleInput}
             onChangeText={setTitle}
@@ -85,7 +119,9 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
             </Pressable>
 
             <Pressable style={styles.button} onPress={() => submitNote()}>
-              <Text style={styles.buttonTextStyle}>Save note</Text>
+              <Text style={styles.buttonTextStyle}>
+                {currentNote ? 'Save' : 'Submit'} note
+              </Text>
             </Pressable>
           </View>
 
