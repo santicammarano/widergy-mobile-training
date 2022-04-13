@@ -1,8 +1,8 @@
 import React, {useState, useMemo} from 'react';
 import {View, Alert, Modal, Text, Pressable, TextInput} from 'react-native';
 import styles from './styles';
-import { updateTextStyles } from '../../../utils/updateTextStyles';
-import newFormUtils from '../../../utils/newFormUtils';
+import { updateTextStyles } from '../../../../../utils/updateTextStyles';
+import newFormUtils from '../../../../../utils/newFormUtils';
 
 const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
   const [title, setTitle] = useState('');
@@ -36,17 +36,6 @@ const NewNoteForm = ({modalVisible, setModalVisible, addNewNote}) => {
 
   // Dynamic styles for the inputs
   const newStyles = useMemo(() => updateTextStyles(bold, italic), [bold, italic]);
-
-  // // Update state and word count according to the user input
-  // const updateText = newText => {
-  //   setText(newText);
-  //   setWordCount(text.trim().split(/\s+/).length);
-  // };
-
-  // // Delete the last written character of the text input
-  // const deleteLastChar = () => {
-  //   setText(prevText => prevText.slice(0, -1));
-  // };
 
   const {updateText, deleteLastChar} = newFormUtils(text, setText, setWordCount);
 
