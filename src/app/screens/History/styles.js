@@ -5,19 +5,23 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
     height: '100%',
+    paddingTop: 10,
   },
   homeButton: {
     borderRadius: 4,
-    padding: 6,
+    padding: 10,
     elevation: 2,
     margin: 10,
+    width: 350,
     backgroundColor: '#ed686e',
   },
   homeButtonText: {
-    fontWeight: "bold",
-    color: "#fff",
-    textTransform: "uppercase",
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#fff',
+    textTransform: 'uppercase',
   },
 });
 

@@ -1,13 +1,9 @@
-import notesApi from '../../config/api';
+import notesApi from '../../config/notesApi';
 
-export const getNotes = () =>
-  notesApi.get('/notes');
+const getNotes = () => notesApi.get('/notes');
+const addNote = note => notesApi.post('/notes', note);
+const editNote = note => notesApi.put('/notes', note);
+const deleteNote = note => notesApi.delete('/notes', note);
 
-export const addNote = note =>
-notesApi.post('/notes', note);
+export {getNotes, addNote, editNote, deleteNote};
 
-export const editNote = note =>
-notesApi.put('/notes', note);
-
-export const deleteNote = note =>
-notesApi.delete('/notes', note);

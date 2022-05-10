@@ -5,7 +5,8 @@ import styles from './styles';
 import {useSelector} from 'react-redux';
 
 const NoteList = props => {
-  const {notes, getNotesLoading} = useSelector(state => state);
+  const notes = useSelector(state => state.notes.notes);
+  const getNotesLoading = useSelector(state => state.notes.getNotesLoading);
   const renderNote = ({item}) => <Note key={item.id} {...item} {...props} />;
 
   return (

@@ -2,9 +2,12 @@ import React, {useState, useEffect, useMemo} from 'react';
 import {View, Alert, Modal, Text, Pressable, TextInput} from 'react-native';
 import styles from './styles';
 import {updateTextStyles} from '../../../utils/updateTextStyles';
-import newFormUtils from '../../../utils/newFormUtils';
+import newNoteFormUtils from '../../../utils/newNoteFormUtils';
 import {useDispatch} from 'react-redux';
 import {actionsCreator} from '../../../redux/notesApi/actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Eicon from 'react-native-vector-icons/Entypo';
+import LinearGradient from 'react-native-linear-gradient';
 
 const NewNoteForm = ({
   modalVisible,
@@ -19,7 +22,8 @@ const NewNoteForm = ({
   const [wordCount, setWordCount] = useState(0);
 
   const dispatch = useDispatch();
-  const {addNote, editNote} = actionsCreator;
+  const addNote = actionsCreator.addNote;
+  const editNote = actionsCreator.editNote;
 
   useEffect(() => {
     updateCurrentNote(currentNote);
@@ -61,7 +65,7 @@ const NewNoteForm = ({
     [bold, italic],
   );
 
-  const {updateText, deleteLastChar, updateCurrentNote} = newFormUtils(
+  const {updateText, deleteLastChar, updateCurrentNote} = newNoteFormUtils(
     text,
     setText,
     setWordCount,
@@ -81,8 +85,14 @@ const NewNoteForm = ({
       }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
+          <Pressable
+            style={styles.closeButtonContainer}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Icon name="close" style={styles.closeButton} />
+          </Pressable>
+
           <Text style={styles.modalText}>
-            {currentNote ? 'Edit' : 'Add'} a new note!
+            {currentNote ? 'Edit' : 'Add'} a note
           </Text>
           <TextInput
             style={styles.titleInput}
@@ -99,36 +109,34 @@ const NewNoteForm = ({
             numberOfLines={4}
           />
 
-          <Text style={styles.wordCountText}>{`Wordcount: ${wordCount}`}</Text>
-
-          <View style={styles.flexRow}>
-            <Pressable style={styles.button} onPress={() => setBold(!bold)}>
-              <Text style={styles.buttonTextStyle}>B</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={() => setItalic(!italic)}>
-              <Text style={styles.buttonTextStyle}>i</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={() => deleteLastChar()}>
-              <Text style={styles.buttonTextStyle}>Del</Text>
+          <View style={styles.wordContainer}>
+            <Text
+              style={styles.wordCountText}>{`Wordcount: ${wordCount}`}</Text>
+            <Pressable onPress={() => deleteLastChar()}>
+              <Eicon name="erase" style={styles.toolButton} />
             </Pressable>
           </View>
 
-          <View style={styles.flexRow}>
-            <Pressable style={styles.button} onPress={() => emptyNote()}>
-              <Text style={styles.buttonTextStyle}>Empty</Text>
+          <View style={styles.toolsContainer}>
+            <Pressable onPress={() => setBold(!bold)}>
+              <Icon name="format-bold" style={styles.toolButton} />
             </Pressable>
+            <Pressable onPress={() => setItalic(!italic)}>
+              <Icon name="format-italic" style={styles.toolButton} />
+            </Pressable>
+            <Pressable onPress={() => emptyNote()}>
+              <Icon name="autorenew" style={styles.toolButton} />
+            </Pressable>
+          </View>
 
-            <Pressable style={styles.button} onPress={() => submitNote()}>
-              <Text style={styles.buttonTextStyle}>
+          <Pressable onPress={() => submitNote()}>
+            <LinearGradient
+              colors={['#ed686e', '#ec5459']}
+              style={styles.submitButton}>
+              <Text style={styles.submitButtonText}>
                 {currentNote ? 'Save' : 'Submit'} note
               </Text>
-            </Pressable>
-          </View>
-
-          <Pressable
-            style={styles.buttonClose}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.buttonTextStyle}>Close modal</Text>
+            </LinearGradient>
           </Pressable>
         </View>
       </View>
