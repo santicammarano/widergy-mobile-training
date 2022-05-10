@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 import {useDispatch} from 'react-redux';
-import {actionsCreator} from '../../../../../redux/notes/actions';
+import {actionsCreator} from '../../../../../redux/notesApi/actions';
 
 const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
   const setDynamicStyles = {
@@ -24,7 +24,7 @@ const Note = ({id, title, text, dynamicStyles, handleNotePressed}) => {
         <View>
           <Pressable
             style={styles.closeButton}
-            onPress={() => dispatch(deleteNote(id))}>
+            onPress={() => dispatch(deleteNote({id, title, text, dynamicStyles}))}>
             <Text>X</Text>
           </Pressable>
         </View>

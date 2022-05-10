@@ -4,7 +4,7 @@ import styles from './styles';
 import {updateTextStyles} from '../../../utils/updateTextStyles';
 import newFormUtils from '../../../utils/newFormUtils';
 import {useDispatch} from 'react-redux';
-import {actionsCreator} from '../../../redux/notes/actions';
+import {actionsCreator} from '../../../redux/notesApi/actions';
 
 const NewNoteForm = ({
   modalVisible,
