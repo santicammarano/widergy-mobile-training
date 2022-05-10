@@ -6,3 +6,4 @@ const editNote = note => notesApi.put('/notes', note);
 const deleteNote = note => notesApi.delete('/notes', note);
 
 export {getNotes, addNote, editNote, deleteNote};
+
